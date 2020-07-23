@@ -47,7 +47,7 @@ class Usuario{
 		$this->dtcadastro = $value;
 	}
 
-	public function loadByID($id){
+	public function loadByID($id){ // traz o id do usuario
 
 		$sql = new Sql();
 
@@ -64,6 +64,49 @@ class Usuario{
 			$this->setDessenha($row['dessenha']);
 			$this->setDtcadastro(new DateTime($row['dtcadastro']));
 		} 
+	}
+
+	public static function getList(){ // traz uma lista de usuarios (metodo)
+
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM tb_usuarios ORDER BY deslogin;");
+
+	}
+
+	public static function search($login){
+
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM tb_usuarios WHERE deslogin LIKE :SEARCH ORDER BY deslogin", array (
+			':SEARCH'=>"%".$login."%"
+		));
+
+	}
+
+	public function login($login, $password){
+
+		$sql = new Sql();
+
+		$results = $sql->select("SELECT * FROM tb_usuarios WHERE deslogin = :LOGIN AND dessenha = :PASSWORD", array(
+			":LOGIN"=>$login,
+			":PASSWORD"=>$password
+		));
+
+		if (count($results) > 0) {      // conta e verifica resultado para ver se maior que 0 numero de ids
+			                           ///(isset($results[0] )) 
+			$row = $results[0];
+
+			$this->setIdusuario($row['idusuario']);
+			$this->setDeslogin($row['deslogin']);
+			$this->setDessenha($row['dessenha']);
+			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+
+		} else {
+
+			throw new Exception("login ou senha invalidos.");
+		}
+
 	}
 
 	public function __toString(){
