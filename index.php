@@ -31,12 +31,20 @@ require_once("config.php");
 
 //echo $aluno;
 
+// ALTERANDO UM USUARIO PELA CLASSE DAO PHP
+//$usuario = new Usuario();
+//$usuario->loadById(8);
+//$usuario->update("professor", "!@#$%¨&");
+//echo $usuario;
+
+
 $usuario = new Usuario();
 
-$usuario->loadById(8);
+$usuario->loadById(7);
 
-$usuario->update("professor", "!@#$%¨&");
+$usuario->delete();
 
 echo $usuario;
+
 
 ?>
