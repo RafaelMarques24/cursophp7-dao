@@ -20,16 +20,23 @@ require_once("config.php");
 //-------------------------------------------------------------
  // Carrega um usuario USANDO O LOGIN E A SENHA
 
- $usuario = new Usuario();
- $usuario->login("root", "!@#$%");
+ //$usuario = new Usuario();
+ //$usuario->login("root", "!@#$%");
+//echo $usuario;
+
+// Criando um novo usuario, usando insert
+//$aluno = new Usuario("aluno", "@lun0");
+
+//$aluno->insert();
+
+//echo $aluno;
+
+$usuario = new Usuario();
+
+$usuario->loadById(8);
+
+$usuario->update("professor", "!@#$%¨&");
 
 echo $usuario;
-
-/*$sql = new Sql();
-
-$usuarios = $sql->select("SELECT * FROM tb_usuarios");
-
-echo json_encode($usuarios);
-*/
 
 ?>
